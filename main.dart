@@ -1,87 +1,74 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
+import 'dart:math';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget{
-  
+class MyApp extends StatelessWidget {
   @override
-  Widget build (BuildContext context){
-    
+  Widget build(BuildContext context) {
     return MaterialApp(
-      
-      home: PaginaInicial()
-    
+      title: 'Gerador Aleatório',
+      home: PaginaInicial(),
     );
-    
   }
 }
 
-class PaginaInicial extends StatelessWidget{
-  
+class PaginaInicial extends StatelessWidget {
   @override
-  Widget build (BuildContext context){
-    
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Gerador Aleatório")
-      
-      ),
+      appBar: AppBar(title: Text('Gerador Aleatório')),
       body: Center(
         child: Column(
-          Titulo(),
-          SizedBox(height:30),
-          NumeroAleatorio()
-        )
-       )
-    
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Titulo(), SizedBox(height: 30), NumeroAleatorio()],
+        ),
+      ),
     );
   }
 }
 
-class Titulo extends StatelessWidget{
-  
+class Titulo extends StatelessWidget {
   @override
-  Widget build (BuildContext context){
-    
-    return Container(
-      child: Text("Gerador de números",
-                  style: TextStyle(fontSize: 28)
-                 )
-   
+  Widget build(BuildContext context) {
+    return Text(
+      'Gerador de números',
+      style: TextStyle(fontSize: 28),
     );
   }
 }
 
-
-class NumeroAleatorio extends StatefulWidget{
-  
+class NumeroAleatorio extends StatefulWidget {
   @override
-  NumeroAleatorioState createState()=> NumeroAleatorioState();
-  
+  NumeroAleatorioState createState() => NumeroAleatorioState();
 }
 
+class NumeroAleatorioState extends State<NumeroAleatorio> {
+  int _numeroAleatorio = 0;
 
-class NumeroAleatorioState extends State<NumeroAleatorio>{
-  
-  @override
-  Widget build(BuildContext context){
-    
-    return Container(
-      child Column(
-        childreen: [
-          Text("0", TextStyle(fontSize:28)),
-          SizedBox(height:30),
-          RaisedButton(child:Text("Gerar número"))
-          
-          
-        ]
-      )
-    
-    );
-  
+  void _gerarNumeroAleatorio() {
+    final rand = Random();
+    setState(() {
+      _numeroAleatorio = rand.nextInt(100); // Gera um número entre 0 e 99
+    });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          '$_numeroAleatorio',
+          style: TextStyle(fontSize: 28),
+        ),
+        SizedBox(height: 30),
+        ElevatedButton(
+          child: Text('Gerar número'),
+          onPressed: _gerarNumeroAleatorio,
+        ),
+      ],
+    );
+  }
 }
-
